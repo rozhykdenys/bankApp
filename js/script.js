@@ -1,14 +1,14 @@
 'use strict';
 
 const account1 = {
-  owner: 'Jonas Schmedtmann',
+  owner: 'Den Rozhyk',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
 };
 
 const account2 = {
-  owner: 'Jessica Davis',
+  owner: 'Sam Wilson',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
@@ -22,7 +22,7 @@ const account3 = {
 };
 
 const account4 = {
-  owner: 'Sarah Smith',
+  owner: 'Tom Smith',
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
@@ -56,3 +56,37 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+//Codding
+function displayMovement(movement){
+  containerMovements.innerHTML = '';
+
+  movement.forEach((mov, i) => {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+        <div class="movements__value">${mov}€</div>
+      </div>`;
+
+      containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+}
+
+displayMovement(account1.movements)
+
+const createUsernames = function(accs) {
+  accs.forEach((acc) => {
+    acc.username = 
+      acc.owner.toLocaleLowerCase()
+      .split(' ')
+      .map((name) =>  name[0]).join('');
+    })
+}
+createUsernames(accounts)
+
+const withdrowals = []
+for (const mov of movements) if( moov < 0) withdrowals.push(mov)
+const withdr = movements.filter((mov) => {
+  return mov > 0
+})
