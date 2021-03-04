@@ -95,7 +95,6 @@ function calcDisplaySumm(mov){
   const inter = mov.filter(mov => mov > 0)
                    .map(deposit => deposit * 1.2/100)
                    .filter((int, i, arr)=> {
-                     console.log(arr);
                      return int >= 1;
                    })
                    .reduce((acc, int) => acc + int, 0);
@@ -115,6 +114,19 @@ const createUsernames = function(accs) {
 }
 createUsernames(accounts);
 
+
+let currentAcc;
+
+btnLogin.addEventListener('click', (e) => {
+  e.preventDefault()
+
+  currentAcc = accounts.find(acc => acc.username === inputLoginUsername.value);
+
+  if(currentAcc?.pin === Number(inputLoginPin.value)){
+    labelWelcome.textContent = `Welcome back, ${currentAcc.owner.split(' ')[0]}!`;
+    containerApp.style.opacity = 100;
+  }
+});
 
 // function calcAverageHumanAge(ages) {
 
