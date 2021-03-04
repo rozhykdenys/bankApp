@@ -2,7 +2,7 @@
 
 const account1 = {
   owner: 'Den Rozhyk',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [500, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
 };
@@ -73,7 +73,37 @@ function displayMovement(movement){
   });
 }
 
-displayMovement(account1.movements)
+displayMovement(account1.movements);
+
+function calcDisplayBal(mov){
+  const bal = mov.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${bal} EUR`
+}
+calcDisplayBal(account1.movements)
+
+function calcDisplaySumm(mov){
+  const incomes = mov.filter(mov => mov > 0)
+                     .reduce((acc, movm) => acc + movm, 0);
+  
+  labelSumIn.textContent = `${incomes}€`;
+
+  const out = mov.filter((mov) => mov < 0)
+                 .reduce((acc, movm) => acc + movm, 0);
+
+                 labelSumOut.textContent = `${Math.abs(out)}€`;
+  
+  const inter = mov.filter(mov => mov > 0)
+                   .map(deposit => deposit * 1.2/100)
+                   .filter((int, i, arr)=> {
+                     console.log(arr);
+                     return int >= 1;
+                   })
+                   .reduce((acc, int) => acc + int, 0);
+
+  labelSumInterest.textContent = `${inter}€`;
+}
+
+calcDisplaySumm(account1.movements)
 
 const createUsernames = function(accs) {
   accs.forEach((acc) => {
@@ -83,10 +113,18 @@ const createUsernames = function(accs) {
       .map((name) =>  name[0]).join('');
     })
 }
-createUsernames(accounts)
+createUsernames(accounts);
 
-const withdrowals = []
-for (const mov of movements) if( moov < 0) withdrowals.push(mov)
-const withdr = movements.filter((mov) => {
-  return mov > 0
-})
+
+// function calcAverageHumanAge(ages) {
+
+//   const humanAge = ages.map((value) => (value <= 2) ? value * 2 : 16 + value * 4);
+//   const age = humanAge.filter((value) => value > 18);
+//   const adult = age.reduce((acc, age) => acc + age, 0)
+
+//   console.log(adult)
+// }
+
+// const dog = [5, 2, 4, 1, 15, 8, 3];
+// calcAverageHumanAge(dog);
+
