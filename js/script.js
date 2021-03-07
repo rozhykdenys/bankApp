@@ -57,10 +57,10 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 //Codding
-function displayMovement(movements, sort = false) {
+function displayMovement(acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort ? acc.movements.slice().sort((a, b) => a - b) : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
@@ -68,7 +68,7 @@ function displayMovement(movements, sort = false) {
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>`;
 
       containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -112,12 +112,22 @@ const createUsernames = function(accs) {
 createUsernames(accounts);
 
 function updateUI (acc) {
-    displayMovement(acc.movements);
+    displayMovement(acc);
     calcDisplayBal(acc);
     calcDisplaySumm(acc);
 }
 
 let currentAcc;
+
+currentAcc = account1;
+updateUI(currentAcc);
+containerApp.style.opacity = 100;
+
+const now = new Date();
+const day = `${now.getDay()}`.padStart(2, 0);
+const month = `${now.getMonth() + 1}`.padStart(2, 0);
+const year = now.getFullYear();
+labelDate.textContent = `${day}/${month}/${year}`;
 
 btnLogin.addEventListener('click', (e) => {
   e.preventDefault()
@@ -177,12 +187,12 @@ btnClose.addEventListener('click', (e) => {
 })
 
 let sorted = false;
-btnSort.addEventListener('click', (e) => {
+btnSort.addEventListener('click', function (e) {
   e.preventDefault();
 
   displayMovement(currentAcc, !sorted);
   sorted = !sorted;
-})
+});
 
 // function calcAverageHumanAge(ages) {
 
