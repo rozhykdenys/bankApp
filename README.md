@@ -6,6 +6,6 @@ What can you do and functionality:
 3. Take loan if it's less than 10% of your amount
 4. Sort your operations
 5. Log out
-6. You can see hov much money you get, spend and procent you lost.
+6. You can see how much money you get, spend and procent you lost.
 
 <i>Technologies: Js, css</i>
